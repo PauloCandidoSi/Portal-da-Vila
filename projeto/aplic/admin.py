@@ -8,6 +8,15 @@ class AtividadeInline(admin.TabularInline):
     extra = 1
 
 
+class EnderecoInline(admin.TabularInline):
+    model = Endereco
+    extra = 1
+
+
+class ResponsavelInline(admin.TabularInline):
+    model = Responsavel
+    extra = 1
+
 
 @admin.register(Evento)
 class EventoAdmin(admin.ModelAdmin):
@@ -17,11 +26,13 @@ class EventoAdmin(admin.ModelAdmin):
 
 @admin.register(Administrador)
 class AdministradorAdmin(admin.ModelAdmin):
+    inlines = [EnderecoInline]
     list_display = ('nome', 'cargo')
 
 
 @admin.register(Residente)
-class residenteAdmin(admin.ModelAdmin):
+class ResidenteAdmin(admin.ModelAdmin):
+    inlines = [ResponsavelInline]
     list_filter = ('data_nascimento',)
 
 
@@ -37,6 +48,7 @@ class EnderecoAdmin(admin.ModelAdmin):
 
 @admin.register(Responsavel)
 class RespostavelAdmin(admin.ModelAdmin):
+    inlines = [EnderecoInline]
     list_display = ('telefone', 'celular', 'telefone_comercial')
 
 
@@ -58,8 +70,3 @@ class FeedbackAdmin(admin.ModelAdmin):
 @admin.register(Notificacao)
 class NotificacaoAdmin(admin.ModelAdmin):
     list_display = ('mensagem', 'dataEnvio')
-
-
-from django.contrib import admin
-
-# Register your models here.
